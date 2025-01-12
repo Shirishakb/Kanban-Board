@@ -30,4 +30,5 @@ export const authenticateToken = (req:Request, res: Response, next: NextFunction
     // Proceed to the next middleware or route handler
     return next();
   });
+  return next();
 };
