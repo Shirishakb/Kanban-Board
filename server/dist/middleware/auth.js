@@ -8,16 +8,14 @@ export const authenticateToken = (req, res, next) => {
         return res.status(401).json({ message: "Access denied. No token provided." });
     }
     // Verify the token
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
         if (err) {
             // If token verification fails, respond with a forbidden status
             return res.status(403).json({ message: "Invalid token." });
         }
-        if (decoded) {
-            // Attach the decoded user data to the request object
-            req.user = decoded;
-        }
+        req.user = decoded;
         // Proceed to the next middleware or route handler
         return next();
     });
+    return;
 };

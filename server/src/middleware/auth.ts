@@ -16,19 +16,15 @@ export const authenticateToken = (req:Request, res: Response, next: NextFunction
   }
 
   // Verify the token
-  jwt.verify(token, process.env.JWT_SECRET!, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET_KEY!, (err, decoded) => {
     if (err) {
       // If token verification fails, respond with a forbidden status
       return res.status(403).json({ message: "Invalid token." });
     }
-
-    if (decoded) {
-      // Attach the decoded user data to the request object
       (req as any).user = decoded as JwtPayload;
-    }
 
     // Proceed to the next middleware or route handler
     return next();
   });
-  return next();
+  return;
 };

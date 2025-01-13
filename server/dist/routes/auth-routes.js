@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { User } from "../models/user"; // Ensure the User model is imported correctly
+import { User } from "../models/index.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-export const login = async (req, res) => {
+const login = async (req, res) => {
     const { username, password } = req.body;
     try {
         // Check if the user exists in the database
@@ -16,11 +16,10 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid username or password." });
         }
         // Create a JWT token
-        const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, // Ensure JWT_SECRET is defined in your .env file
-        { expiresIn: "1h" } // Token expires in 1 hour
+        const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" } // Token expires in 1 hour
         );
         // Send the token in the response
-        res.json({ token });
+        return res.json({ token });
     }
     catch (error) {
         console.error("Error logging in:", error);
