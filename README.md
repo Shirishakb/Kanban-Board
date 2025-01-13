@@ -44,11 +44,11 @@ THEN my session expires, the JWT is invalidated, and I am redirected to the logi
 
 The following images show the web application's appearance and functionality:
 
-![The Kanban board application displays a Login Required page.](./Assets/14-00-unauthenticated-page.png)
+![The Kanban board application displays a Login Required page.](./Assets/1.png)
 
-![The Kanban board application displays a Login page.](./Assets/14-01-login-page.png)
+![The Kanban board application displays a Login page.](./Assets/2.png)
 
-![The Kanban board application includes a main page that displays a list of all tasks sorted into three columns according their statuses.](./Assets/14-02-main-page.png)
+![The Kanban board application includes a main page that displays a list of all tasks sorted into three columns according their statuses.](./Assets/3.png)
 
 ## Getting Started
 
