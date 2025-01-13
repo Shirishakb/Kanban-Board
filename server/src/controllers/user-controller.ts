@@ -7,7 +7,9 @@ export const getAllUsers = async (_req: Request, res: Response) => {
     const users = await User.findAll({
       attributes: { exclude: ['password'] }
     });
-    res.json(users);
+    const usersArray=users.map((user)=>user.get({plain:true}));
+    console.log(usersArray);
+    res.json(usersArray);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

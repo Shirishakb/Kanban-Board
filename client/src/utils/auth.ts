@@ -35,7 +35,7 @@ class AuthService {
   // Set the token to localStorage and redirect to the home page
   login(idToken: string) {
     localStorage.setItem("jwt", idToken);
-    window.location.assign("/kanban"); // Redirect to the main Kanban board page
+    window.location.assign("/"); // Redirect to the main Kanban board page
   }
 
   // Remove the token from localStorage and redirect to the login page
