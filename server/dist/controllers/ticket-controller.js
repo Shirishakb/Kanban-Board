@@ -1,9 +1,23 @@
 import { Ticket } from '../models/ticket.js';
 import { User } from '../models/user.js';
 // GET /tickets
-export const getAllTickets = async (_req, res) => {
+export const getAllTickets = async (req, res) => {
+    const { status, assignedUser, sortBy, sortOrder } = req.query;
     try {
+        const filters = {};
+        if (status)
+            filters.status = status; // Filter by status
+        if (assignedUser)
+            filters.assignedUserId = assignedUser; // Filter by assigned user
+        const order = [];
+        if (sortBy) {
+            order.push([sortBy, sortOrder?.toUpperCase() || 'ASC']);
+        }
+        else {
+            order.push(['createdAt', 'DESC']); // Default sorting
+        }
         const tickets = await Ticket.findAll({
+            where: filters,
             include: [
                 {
                     model: User,
@@ -11,6 +25,7 @@ export const getAllTickets = async (_req, res) => {
                     attributes: ['username'], // Include only the username attribute
                 },
             ],
+            order,
         });
         res.json(tickets);
     }
@@ -26,8 +41,8 @@ export const getTicketById = async (req, res) => {
             include: [
                 {
                     model: User,
-                    as: 'assignedUser', // This should match the alias defined in the association
-                    attributes: ['username'], // Include only the username attribute
+                    as: 'assignedUser',
+                    attributes: ['username'],
                 },
             ],
         });
